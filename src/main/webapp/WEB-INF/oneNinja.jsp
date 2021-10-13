@@ -31,7 +31,7 @@
 	<h1>Look at this Ninj</h1>
 
 	
-	<h3>I am <c:out value="${ninj.firstName}"></c:out><c:out value="${ninj.lastName}"></c:out> </h3>
+	<h3>I am <c:out value="${ninj.firstName}"></c:out> <c:out value="${ninj.lastName}"></c:out> </h3>
 	
 	<h4>Member of: <c:out value="${ninj.dojo.name}"></c:out> </h4>
 	
@@ -39,7 +39,17 @@
 	
 	
 	
-<a href="/">Home</a>
+	<a href="/homepage">Home</a> 
+	
+	
+	<c:choose>
+	<c:when test="${ninj.user.id == user.id}">
+	<a href="/editNinja/${ninj.id}" class="mx-3">Edit</a> <a href="/destroy/${ninj.id}">Delete</a>
+	</c:when>
+	<c:otherwise>
+	<p style="color:red;"> Your Not The Master! </p>
+	</c:otherwise> 
+	</c:choose>
 
 </body>
 </html>

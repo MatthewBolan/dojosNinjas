@@ -31,24 +31,28 @@
 
 
 
-	<h3>Name your Dojo !</h3>
+	<h3>Name your Dojo <c:out value="${ user.userName }"></c:out>!</h3>
 	
 	<form:form action="/createDojo" method="post" modelAttribute="dojo">
+	
+	<form:hidden path="user" value="${user.id}"/>
 	
     <p>
         <form:label path="name">Dojo Name</form:label>
         
-        <form:errors path="name"/>
-        
         <form:input path="name"/>
         
     </p>
-       
+    
+    <p>
+    <form:errors path="name" class="text-danger"/>
+    </p> 
+      
     <input type="submit" value="Submit"/>
     
 	</form:form>
   
-<a href="/">Home</a>
+	<a href="/homepage">Home</a>
 
 </body>
 </html>

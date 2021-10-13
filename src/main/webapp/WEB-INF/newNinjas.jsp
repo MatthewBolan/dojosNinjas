@@ -30,35 +30,37 @@
 <body>
 
 <h1>Make A New Ninj</h1>
-
-	<a href="/">Home</a>
 	
-	<a href="/editVampire">Edit Ninja</a>
-	
-	<a href="/oneVampire">One Ninja</a>
     
 	<form:form action="/createNinj" method="post" modelAttribute="ninj">
+	
+	<form:hidden path="user" value="${user.id}"/>
 	
     <p>
     
         <form:label path="firstName">First Name</form:label>
         
-        <form:errors path="firstName"/>
-        
         <form:input path="firstName"/>
+        
         
     </p>
     
+    <p>
+    <form:errors path="firstName" class="text-danger"/>
+    </p>
     
     
     <p>
     
         <form:label path="lastName">Last Name</form:label>
         
-        <form:errors path="lastName"/>
-        
         <form:input path="lastName"/>
         
+        
+    </p>
+    
+    <p>
+    <form:errors path="lastName" class="text-danger"/>
     </p>
     
     
@@ -68,10 +70,13 @@
     
         <form:label path="age">Age</form:label>
         
-        <form:errors path="age"/>
-        
         <form:input type="number" path="age"/>
         
+        
+    </p>
+    
+    <p>
+    <form:errors path="age" class="text-danger"/>
     </p>
     
     
@@ -93,7 +98,7 @@
     
 	</form:form>    
 
-<a href="/">Home</a>
+<a href="/homepage">Home</a>
 
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.codingdojo.dojosNinjas.models;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 
@@ -27,15 +33,27 @@ public class Ninja {
     
     private Long id;
     
+    
+    @NotNull 
+    @Size(min = 5, max = 150)
     private String firstName;
     
+    @NotNull 
+    @Size(min = 5, max = 150)
     private String lastName;
     
+    @NotNull 
+    @Min(5) 
     private int age;
+    
     
     @Column(updatable=false)
     
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    
     private Date createdAt;
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     
     private Date updatedAt;
     
@@ -43,20 +61,17 @@ public class Ninja {
     
     @JoinColumn(name="dojo_id")
     
-    
-    
-    
     private Dojo dojo;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
     
     
     
     
-    public Ninja() {
-        
-    }
     
-    
+    public Ninja() {}   
     
     
     
@@ -113,6 +128,46 @@ public class Ninja {
 	}
 
 
+
+
+
+
+
+
+
+
+
+
+	public Ninja(User user) {
+		super();
+		this.user = user;
+	}
+
+
+
+
+
+
+
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+
+
+
+
+
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 
 
@@ -294,15 +349,6 @@ public class Ninja {
 
 
 
-
-
-
-
-
-
-
-
-
 	public Dojo getDojo() {
 		return dojo;
 	}
@@ -325,7 +371,16 @@ public class Ninja {
 
 
   
-   
+	@PrePersist
+	protected void onCreate() {
+		this.createdAt = new Date();
+	}
+	
+	@PreUpdate
+	protected void onUpdate() {
+		
+		this.updatedAt = new Date();
+	}   
     
     
 }

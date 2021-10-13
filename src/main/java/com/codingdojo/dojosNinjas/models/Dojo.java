@@ -10,10 +10,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 
@@ -27,21 +31,25 @@ public class Dojo {
     
     private Long id;
     
+    @NotNull
+    @Size(min=3, max=25, message = "Dojo Name needs to be atleast 3 characters or under the Max (25)")
     private String name;
     
     @Column(updatable=false)
-    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
     
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
     
     @OneToMany(mappedBy="dojo", fetch = FetchType.LAZY)
-    
     private List<Ninja> ninjas;
     
-    public Dojo() {
-        
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
+    
+    public Dojo() {}
 
     
     
@@ -51,7 +59,9 @@ public class Dojo {
 
 	public Dojo(
 			
-		@NotNull @Size(min = 3, max = 25, message = "Dojo Name Needs to be within 3 - 25 letters!") String name) {
+		@NotNull
+		
+		@Size(min = 3, max = 25, message = "Dojo Name Needs to be within 3 - 25 letters!") String name) {
 		
 		super();
 		
@@ -64,7 +74,9 @@ public class Dojo {
 
 	public Dojo(
 			
-		@NotNull @Size(min = 3, max = 25, message = "Dojo Name Needs to be within 3 - 25 letters!") String name,
+		@NotNull 
+		
+		@Size(min = 3, max = 25, message = "Dojo Name Needs to be within 3 - 25 letters!") String name,
 		
 		List<Ninja> ninjas) {
 		
@@ -82,29 +94,27 @@ public class Dojo {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+	public Dojo(
+			
+			@NotNull 
+			
+			@Size(min = 3, max = 25, message = "Dojo Name needs to be atleast 3 characters or under the Max (25)") String name,
+			
+			User user) {
+		
+		super();
+		
+		this.name = name;
+		
+		this.user = user;
+	}
+
+
+
+
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -143,6 +153,26 @@ public class Dojo {
 
 	public void setNinjas(List<Ninja> ninjas) {
 		this.ninjas = ninjas;
+	}
+
+
+
+
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+
+
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
     
     // getters and setters removed for brevity

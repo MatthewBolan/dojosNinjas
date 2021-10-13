@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+<%@ page isErrorPage="true" %> 
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>        
@@ -31,7 +33,7 @@
 
 <h1>Edit Your Ninja</h1>
 	
-	<a href="/">Home</a>
+	
 
 	<form:form action="/editNinja/${ninj.id}" method="post" modelAttribute="ninj">
 	
@@ -85,6 +87,12 @@
     <input type="submit" value="Submit"/>
     
 </form:form> 
+
+
+
+<a href="/homepage">Home</a>
+
+
 
 </body>
 </html>

@@ -23,25 +23,21 @@
 	
 	
 	<title>Insert title here</title>
-	
 </head>
 
 <body>
 
+<h1>Greetings ${user.userName}</h1>
 
-	<h1>Welcome to <c:out value="${dojo.name}"></c:out> </h1>
-	
-	<h2>Dojo Master: ${dojo.user.userName}</h2>
-	
-	<h3>Meet our ninja(s) ${user.userName} !</h3>
-	
-	<c:forEach var="i" items="${dojo.ninjas}">
-	
-		<h6> <c:out value="${i.firstName}"></c:out> <c:out value="${i.lastName}"></c:out> </h6>
-		
-	</c:forEach>
+<h2>You are the MASTER of these dojo's</h2>
 
-	<a href="/homepage">Home</a>
+<c:forEach var="i" items="${user.dojos}">
+
+<p> <c:out value="${i.name }"></c:out>  <p>
+
+</c:forEach>
+
+<a href="/homepage">Home</a>
 
 </body>
 </html>
